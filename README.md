@@ -1,7 +1,6 @@
 # CodeQuality
-Sample application for code quality and UTC
+Sample application for code quality and UTC. This application will provide elementary examples on below mentioned topics
 
-
-Steps Required
-
-- Install all the dependencies via pip install -r requirements.txt
+* #### Writing test cases using PyTest
+* #### Code analysis using MyPy
+* #### Code formatting using Black 

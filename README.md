@@ -9,7 +9,7 @@ Sample application for code quality and UTC. This application will provide eleme
   * We can install all the dependencies required using the below mentioned command
     * pip install -r requirements.txt
 
-* #### Configuring test cases using PyTest
+* ### Configuring test cases using PyTest
   * All the test cases has to be present in the $\color{green}{tests}$ directory.
   * For each file present in $\color{blue}{src}$ directory there will be corresponding file present in the $\color{green}{tests}$ directory starting with `test_{file_name}`.
   * Each file will contain test cases corresponding to every function starting with `test_{function_name}`.
@@ -19,7 +19,7 @@ Sample application for code quality and UTC. This application will provide eleme
     * The reports will be created in the directory path mentioned in above command.
     * Additional configurations can be mentioned in `.coveragerc` file. Such as packages to included/excluded for test coverage and many more.
   * For further details, Please visit https://docs.pytest.org/en/7.4.x/
-* #### Code analysis using MyPy
+* ### Code analysis using MyPy
   * In to order to run the analysis we need to run this command => `mypy --html-report type-coverage src/com/code/quality`
     * --html-report => it defines the format to the report 
     * `type-coverage` => it defines the directory path in which reports will be generated.

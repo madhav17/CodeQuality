@@ -10,5 +10,7 @@ Sample application for code quality and UTC. This application will provide eleme
     * pip install -r requirements.txt
 
 * #### Configuring test cases using PyTest
-  * All the test case are present in the $\color{green}{tests}$  directory 
+  * All the test cases are present in the $\color{green}{tests}$ directory.
+  * For each file present in $\color{blue}{src}$ directory there will be corresponding file present in the $\color{green}{tests}$ directory starting with `test_*` name.
+  * Each file will contain test cases corresponding to every function starting with `test_{function_name}`.
 

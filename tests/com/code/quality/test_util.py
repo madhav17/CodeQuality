@@ -1,4 +1,4 @@
-from src.com.ttn.code_quality.util import Util
+from src.com.code.quality.util import Util
 
 
 def test_add():

@@ -9,4 +9,6 @@ lxml
 black
 pep8
 pycodestyle
+#  for pre-commit integration
+pre-commit
 # pip3 install mypy==1.4.1

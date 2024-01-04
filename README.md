@@ -3,9 +3,9 @@ Sample application for code quality and UTC. This application will provide eleme
 
 * ### Configuring test cases using PyTest
 * ### Code analysis using MyPy
-* ### Code formatting using Black 
+* ### Code formatting using Black
 
-* #### Pre-requisites 
+* #### Pre-requisites
   * We can install all the dependencies required using the below mentioned command
     * pip install -r requirements.txt
 
@@ -21,12 +21,12 @@ Sample application for code quality and UTC. This application will provide eleme
   * For further details, Please visit https://docs.pytest.org/en/7.4.x/
 * ### Code analysis using MyPy
   * In to order to run the analysis we need to run this command => `mypy --html-report type-coverage src/com/code/quality`
-    * --html-report => it defines the format to the report 
+    * --html-report => it defines the format to the report
     * `type-coverage` => it defines the directory path in which reports will be generated.
     * `src/com/code/quality` => path of the source code that need to be analyzed.
   * Additional configurations can be mentioned in `.mypy.ini` file. Such as what are the parameter to considered while analyzing the code.
   * For further details, Please visit https://mypy.readthedocs.io/en/stable/
-* ### Code formatting using Black 
+* ### Code formatting using Black (required for IDE other than PyCharm)
   * In order to format the file according to the PEP8 (https://pep8.org) standards. We can use $\color{red}{black}$ framework.
   * ##### Installation
     * Inorder to install black on your machine, we can use this command => pip install black.
@@ -37,4 +37,3 @@ Sample application for code quality and UTC. This application will provide eleme
   * Format Multiple Files <=> black folder_name/
   * In Intellij we can format files via `Tools => BlackConnect => Reformat Whole File`
   * For further details, Please visit https://black.readthedocs.io/en/stable/.
-

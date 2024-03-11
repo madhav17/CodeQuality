@@ -2,9 +2,9 @@ from pyspark.sql import SparkSession, DataFrame
 import pytest
 
 # use src basically the root package to import all the test cases
-from src.com.code.quality.SampleRead import SampleRead
+from src.com.code.quality.ReadExample import ReadExample
 
-ob = SampleRead()
+ob = ReadExample()
 
 
 @pytest.fixture(scope="session")

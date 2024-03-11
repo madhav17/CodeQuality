@@ -8,3 +8,7 @@ class Util:
         if x == 5:
             raise ValueError("X must be a value other than 5")
         return x
+
+    @staticmethod
+    def my_division_function(a, b):
+        return a / b

@@ -13,3 +13,23 @@ def test_func():
 
 def test_func_positive():
     assert 6 == Util.func(6)
+
+
+def test_code_raises_no_exception():
+    """
+    Assert your python code raises no exception.
+    """
+    try:
+        assert 2 == Util.my_division_function(10, 5)
+    except Exception as exc:
+        assert isinstance(exc, ZeroDivisionError)
+
+
+def test_code_raises_exception():
+    """
+    Assert your python code raises no exception.
+    """
+    try:
+        Util.my_division_function(10, 0)
+    except Exception as exc:
+        assert isinstance(exc, ZeroDivisionError)

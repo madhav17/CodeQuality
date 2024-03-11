@@ -1,14 +1,15 @@
 from pyspark.testing import assertDataFrameEqual
 
-from com.code.quality.TransformationExample import TransformationExample
+from src.com.code.quality.BasicTransformation import BasicTransformation
+
 
 from com.code.quality.unittest.PySparkTestCase import PySparkTestCase
 
 
-class TestTransformationExample(PySparkTestCase):
+class TestBasicTransformation(PySparkTestCase):
     def setUp(self):
         super().setUp()
-        self.__ob = TransformationExample
+        self.__ob = BasicTransformation
 
     def test_space_removal(self):
         sample_data = [
@@ -22,7 +23,7 @@ class TestTransformationExample(PySparkTestCase):
 
         # Apply the transformation function from before
         transformed_df = self.__ob.remove_extra_spaces(
-            self=self.__ob, data_frame=original_df, column_name="name"
+            self=self.__ob, df=original_df, column_name="name"
         )
 
         expected_data = [

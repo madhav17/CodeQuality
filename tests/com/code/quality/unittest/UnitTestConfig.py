@@ -3,8 +3,7 @@ import unittest
 from pyspark.sql import SparkSession, DataFrame
 
 
-class PySparkTestCase(unittest.TestCase):
-
+class UnitTestConfig(unittest.TestCase):
     def setUp(self):
         print("set_up_class called")
         self.spark = SparkSession.builder.appName(

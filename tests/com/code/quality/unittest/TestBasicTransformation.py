@@ -3,10 +3,10 @@ from pyspark.testing import assertDataFrameEqual
 from src.com.code.quality.BasicTransformation import BasicTransformation
 
 
-from com.code.quality.unittest.PySparkTestCase import PySparkTestCase
+from com.code.quality.unittest.UnitTestConfig import UnitTestConfig
 
 
-class TestBasicTransformation(PySparkTestCase):
+class TestBasicTransformation(UnitTestConfig):
     def setUp(self):
         super().setUp()
         self.__ob = BasicTransformation

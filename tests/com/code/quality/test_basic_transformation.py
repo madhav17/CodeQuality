@@ -74,3 +74,39 @@ class TestBasicTransformation(TestConfig):
         )
 
         assert transformed_df.count() == 0
+
+    def test_transform(
+        self, spark_fixture: SparkSession, basic_transformation: BasicTransformation
+    ):
+        test_df: DataFrame = spark_fixture.createDataFrame(
+            [
+                ("hobbit", "Samwise", 5),
+                ("hobbit", "Billbo", 50),
+                ("hobbit", "Billbo", 20),
+                ("wizard", "Gandalf", 1000),
+            ],
+            ["that_column", "another_column", "yet_another"],
+        )
+        new_df = basic_transformation.transform(test_df)
+        assert new_df.count() == 1
+        assert new_df.toPandas().to_dict("list")["new_column"][0] == 70
+
+    def test_transformation(
+        self, spark_fixture: SparkSession, basic_transformation: BasicTransformation
+    ):
+        input: DataFrame = spark_fixture.createDataFrame(
+            [
+                ("Big", "Ramy", 18),
+                ("Hunter", "Labrada", 21),
+                ("Nick", "Walker", 40),
+            ],
+            ["first_name", "last_name", "age"],
+        )
+
+        assert (
+            basic_transformation.concat_transformation(input)
+            .first()
+            .asDict()
+            .get("name")
+            == "Big Ramy"
+        )

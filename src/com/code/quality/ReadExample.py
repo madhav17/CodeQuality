@@ -28,8 +28,7 @@ class ReadExample:
         return self.__spark.read.option("header", False).csv(path)
 
     def uppercase(self, df: DataFrame, name: str) -> DataFrame:
-        df = df.withColumn(name, func.upper(func.col(name)))
-        return df.count()
+        return df.withColumn(name, func.upper(func.col(name)))
 
     def filter(self, df: DataFrame, column_name: str, value: int) -> DataFrame:
         return df.where(func.col(column_name) > value)
@@ -46,4 +45,5 @@ if __name__ == "__main__":
     df: DataFrame = ob.read_from_json_file("../../../resources/mock_data.json")
     df1: DataFrame = ob.csv_file("../../../resources/mock_data.csv")
     df1.show()
-    ob.uppercase(df, "first_name")
+    df2 = ob.uppercase(df, "first_name")
+    print(df2.count())

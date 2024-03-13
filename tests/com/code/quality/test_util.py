@@ -1,4 +1,4 @@
-from src.com.code.quality.util import Util
+from src.com.code.quality.Util import Util
 import pytest
 
 
@@ -16,9 +16,6 @@ def test_func_positive():
 
 
 def test_code_raises_no_exception():
-    """
-    Assert your python code raises no exception.
-    """
     try:
         assert 2 == Util.my_division_function(10, 5)
     except Exception as exc:
@@ -26,9 +23,6 @@ def test_code_raises_no_exception():
 
 
 def test_code_raises_exception():
-    """
-    Assert your python code raises no exception.
-    """
     try:
         Util.my_division_function(10, 0)
     except Exception as exc:

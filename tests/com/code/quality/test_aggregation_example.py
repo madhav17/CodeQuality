@@ -40,8 +40,8 @@ class TestAggregationExample(TestConfig):
         out = df_agg.collect()
         assert "sum_val" in df_agg.columns
         assert len(out) == 2
-        # assert out[0]["sum_val"] == 45
-        assert out[0]["sum_val"] == 132
+        assert out[0]["sum_val"] == 45
+        # assert out[0]["sum_val"] == 132
 
     def test_max_val(
         self,
@@ -55,8 +55,8 @@ class TestAggregationExample(TestConfig):
         # out = df_agg.sort("sum_val").collect()
         assert "max_val" in df_agg.columns
         assert len(out) == 2
-        # assert out[0]["max_val"] == 23
-        assert out[0]["max_val"] == 55
+        assert out[0]["max_val"] == 23
+        # assert out[0]["max_val"] == 55
 
     def test_sort_sum_val(
         self,

@@ -12,7 +12,7 @@ class BasicTransformation:
         )
         return df_transformed
 
-    def filter_citizen(self, df: DataFrame, column_name: str, age: int) -> DataFrame:
+    def filter(self, df: DataFrame, column_name: str, age: int) -> DataFrame:
         df_filtered = df.filter(col(column_name) >= age)
         return df_filtered
 

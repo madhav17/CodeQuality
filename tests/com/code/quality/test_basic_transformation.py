@@ -51,9 +51,7 @@ class TestBasicTransformation(TestConfig):
         )
 
         # Apply the transformation function from before
-        transformed_df: DataFrame = basic_transformation.filter_citizen(
-            original_df, "age", 60
-        )
+        transformed_df: DataFrame = basic_transformation.filter(original_df, "age", 60)
 
         assert transformed_df.count() == 2
 
@@ -69,7 +67,7 @@ class TestBasicTransformation(TestConfig):
         )
 
         # Apply the transformation function from before
-        transformed_df: DataFrame = basic_transformation.filter_citizen(
+        transformed_df: DataFrame = basic_transformation.filter(
             original_df, "age", 1000
         )
 

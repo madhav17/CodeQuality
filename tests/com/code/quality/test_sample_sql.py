@@ -8,7 +8,7 @@ from tests.com.code.quality.TestConfig import TestConfig
 
 
 class TestSqlExample(TestConfig):
-    @pytest.fixture
+    @pytest.fixture(scope="function")
     def sql_example(self):
         ob = SqlExample()
         yield ob

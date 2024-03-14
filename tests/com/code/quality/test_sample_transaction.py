@@ -7,13 +7,13 @@ from tests.com.code.quality.TestConfig import TestConfig
 
 
 class TestTransactionExample(TestConfig):
-    @pytest.fixture
+    @pytest.fixture(name="ob")
     def transaction_example(self):
         ob = TransactionExample()
         yield ob
 
     def test_normalise_transaction_information(
-        self, spark_fixture: SparkSession, transaction_example: TransactionExample
+        self, spark_fixture: SparkSession, ob: TransactionExample
     ):
         data = ["123-456-789", "123456789", "123456789EUR", "TEXT*?WITH.*CHARACTERS"]
         test_df = spark_fixture.createDataFrame(data, "string").toDF(
@@ -21,13 +21,13 @@ class TestTransactionExample(TestConfig):
         )
 
         expected = ["123456789", "123456789", "123456789EUR", "TEXTWITHCHARACTERS"]
-        output = transaction_example.normalise_transaction_information(test_df)
+        output = ob.normalise_transaction_information(test_df)
         assert [
             row.transaction_information_cleaned for row in output.collect()
         ] == expected
 
     def test_apply_debit_credit_business_classification(
-        self, spark_fixture: SparkSession, transaction_example: TransactionExample
+        self, spark_fixture: SparkSession, ob: TransactionExample
     ):
         data = [
             "101 cr",
@@ -35,7 +35,7 @@ class TestTransactionExample(TestConfig):
             "0",
         ]
         df = spark_fixture.createDataFrame(data, "string").toDF("business_line_id")
-        output = transaction_example.apply_debit_credit_business_classification(df)
+        output = ob.apply_debit_credit_business_classification(df)
 
         expected = ["101 CREDIT", "202 DEBIT", "0 OTHER"]
         assert [row.business_line for row in output.collect()] == expected

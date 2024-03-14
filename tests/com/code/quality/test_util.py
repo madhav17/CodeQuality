@@ -2,8 +2,15 @@ from src.com.code.quality.Util import Util
 import pytest
 
 
-def test_add():
-    assert 17 == Util.add(8, 9)
+@pytest.mark.parametrize(
+    "a, b, expected",
+    [
+        (8, 9, 17),
+        (-80, -100, -180),
+    ],
+)
+def test_add(a, b, expected):
+    assert expected == Util.add(a, b)
 
 
 def test_func():

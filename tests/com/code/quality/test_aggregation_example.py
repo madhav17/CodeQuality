@@ -80,7 +80,6 @@ class TestAggregationExample(TestConfig):
             {"name": "def2", "sum_val": 132},
         ]
 
-        # https://dev.to/suvhotta/mocking-using-pytest-210
         mock = Mock()
         mock.return_value = spark_fixture.createDataFrame(mocked_data)
 

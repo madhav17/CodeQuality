@@ -42,7 +42,7 @@ class ReadExample:
 
 if __name__ == "__main__":
     ob = ReadExample()
-    df: DataFrame = ob.read_from_json_file("../../../resources/mock_data.json")
+    df: DataFrame = ob.json_file("../../../resources/mock_data.json")
     df1: DataFrame = ob.csv_file("../../../resources/mock_data.csv")
     df1.show()
     df2 = ob.uppercase(df, "first_name")

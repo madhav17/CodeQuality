@@ -27,8 +27,8 @@ class TestReadExample(TestConfig):
         )
         assert "BREENA" == read_example.uppercase(df, "first_name").first()[2]
 
-    def test_read_from_json_file(self, read_example: ReadExample):
-        df: DataFrame = read_example.read_from_json_file(
+    def test_json_file(self, read_example: ReadExample):
+        df: DataFrame = read_example.json_file(
             "/Users/madhavkhanna/DE_Projects/CodeQuality/src/resources/mock_data.json"
         )
         assert df is not None

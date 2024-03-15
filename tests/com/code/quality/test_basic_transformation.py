@@ -1,4 +1,5 @@
 from src.com.code.quality.BasicTransformation import BasicTransformation
+from src.com.code.quality.ReadExample import ReadExample
 from tests.com.code.quality.TestConfig import TestConfig
 from pyspark.sql import SparkSession, DataFrame
 from pyspark.testing.utils import assertDataFrameEqual
@@ -11,15 +12,19 @@ class TestBasicTransformation(TestConfig):
         ob = BasicTransformation()
         yield ob
 
+    @pytest.fixture
+    def read(self):
+        ob = ReadExample()
+        yield ob
+
     def test_remove_extra_spaces(
-        self, spark_fixture: SparkSession, basic_transformation: BasicTransformation
-    ) -> bool:
-        original_df: DataFrame = (
-            spark_fixture.read.option("inferSchema", True)
-            .option("multiLine", True)
-            .json(
-                "/Users/madhavkhanna/DE_Projects/CodeQuality/src/resources/citizen.json"
-            )
+        self,
+        spark_fixture: SparkSession,
+        basic_transformation: BasicTransformation,
+        read: ReadExample,
+    ):
+        original_df: DataFrame = read.json_file(
+            "/Users/madhavkhanna/DE_Projects/CodeQuality/src/resources/citizen.json"
         )
 
         # Apply the transformation function from before
@@ -40,14 +45,13 @@ class TestBasicTransformation(TestConfig):
         return assertDataFrameEqual(transformed_df, expected_df)
 
     def test_filter_count_age_60(
-        self, spark_fixture: SparkSession, basic_transformation: BasicTransformation
-    ) -> bool:
-        original_df: DataFrame = (
-            spark_fixture.read.option("inferSchema", True)
-            .option("multiLine", True)
-            .json(
-                "/Users/madhavkhanna/DE_Projects/CodeQuality/src/resources/citizen.json"
-            )
+        self,
+        spark_fixture: SparkSession,
+        basic_transformation: BasicTransformation,
+        read: ReadExample,
+    ):
+        original_df: DataFrame = read.json_file(
+            "/Users/madhavkhanna/DE_Projects/CodeQuality/src/resources/citizen.json"
         )
 
         # Apply the transformation function from before
@@ -56,14 +60,13 @@ class TestBasicTransformation(TestConfig):
         assert transformed_df.count() == 2
 
     def test_filter_count_age_1000(
-        self, spark_fixture: SparkSession, basic_transformation: BasicTransformation
-    ) -> bool:
-        original_df: DataFrame = (
-            spark_fixture.read.option("inferSchema", True)
-            .option("multiLine", True)
-            .json(
-                "/Users/madhavkhanna/DE_Projects/CodeQuality/src/resources/citizen.json"
-            )
+        self,
+        spark_fixture: SparkSession,
+        basic_transformation: BasicTransformation,
+        read: ReadExample,
+    ):
+        original_df: DataFrame = read.json_file(
+            "/Users/madhavkhanna/DE_Projects/CodeQuality/src/resources/citizen.json"
         )
 
         # Apply the transformation function from before
@@ -73,23 +76,7 @@ class TestBasicTransformation(TestConfig):
 
         assert transformed_df.count() == 0
 
-    def test_transform(
-        self, spark_fixture: SparkSession, basic_transformation: BasicTransformation
-    ):
-        test_df: DataFrame = spark_fixture.createDataFrame(
-            [
-                ("hobbit", "Samwise", 5),
-                ("hobbit", "Billbo", 50),
-                ("hobbit", "Billbo", 20),
-                ("wizard", "Gandalf", 1000),
-            ],
-            ["that_column", "another_column", "yet_another"],
-        )
-        new_df = basic_transformation.transform(test_df)
-        assert new_df.count() == 1
-        assert new_df.toPandas().to_dict("list")["new_column"][0] == 70
-
-    def test_transformation(
+    def test_concat(
         self, spark_fixture: SparkSession, basic_transformation: BasicTransformation
     ):
         input: DataFrame = spark_fixture.createDataFrame(
@@ -102,9 +89,33 @@ class TestBasicTransformation(TestConfig):
         )
 
         assert (
-            basic_transformation.concat_transformation(input)
-            .first()
-            .asDict()
-            .get("name")
+            basic_transformation.concat(input).first().asDict().get("name")
             == "Big Ramy"
         )
+
+    @pytest.mark.parametrize(
+        "column_name, value, expected_count",
+        [
+            ("age", 60, 2),
+            ("age", 1000, 0),
+        ],
+    )
+    def test_filter_with_parameter(
+        self,
+        spark_fixture: SparkSession,
+        basic_transformation: BasicTransformation,
+        read: ReadExample,
+        column_name,
+        value,
+        expected_count,
+    ):
+        original_df: DataFrame = read.json_file(
+            "/Users/madhavkhanna/DE_Projects/CodeQuality/src/resources/citizen.json"
+        )
+
+        # Apply the transformation function from before
+        transformed_df: DataFrame = basic_transformation.filter(
+            original_df, column_name, value
+        )
+
+        assert transformed_df.count() == expected_count

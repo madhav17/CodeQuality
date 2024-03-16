@@ -95,10 +95,7 @@ class TestBasicTransformation(TestConfig):
 
     @pytest.mark.parametrize(
         "column_name, value, expected_count",
-        [
-            ("age", 60, 2),
-            ("age", 1000, 0),
-        ],
+        [("age", 60, 2), ("age", 1000, 0)],
     )
     def test_filter_with_parameter(
         self,

@@ -10,13 +10,6 @@ class ReadExample:
         )
         self.__spark.sparkContext.setLogLevel("WARN")
 
-    def read_from_json_file(self, path: str) -> DataFrame:
-        return (
-            self.__spark.read.option("inferSchema", True)
-            .option("multiLine", True)
-            .json(path)
-        )
-
     def json_file(self, path: str) -> DataFrame:
         return (
             self.__spark.read.option("inferSchema", True)

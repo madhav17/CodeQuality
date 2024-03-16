@@ -1,3 +1,4 @@
+from pyspark.errors import AnalysisException
 from pyspark.sql import SparkSession, DataFrame
 import pytest
 
@@ -12,8 +13,9 @@ import pytest
 
 
 class TestReadExample(TestConfig):
-    @pytest.fixture
-    def read_example(self):
+    @pytest.fixture(name="read_example", scope="class")
+    def create_read_example(self):
+        print("Fixture created")
         ob = ReadExample()
         yield ob
 
@@ -34,10 +36,16 @@ class TestReadExample(TestConfig):
         assert df is not None
         assert df.count() == 56
 
+    def test_json_file_not_found(self, read_example: ReadExample):
+        try:
+            df: DataFrame = read_example.json_file("random.json")
+        except Exception as e:
+            assert isinstance(e, AnalysisException)
+
     def test_filter(self, spark_fixture: SparkSession, read_example: ReadExample):
         input: DataFrame = spark_fixture.createDataFrame(
             [
-                ("Madhav", "Khanna", 32),
+                ("Madhav", "Khanna", 33),
                 ("Big", "Ramy", 18),
                 ("Hunter", "Labrada", 21),
                 ("Nick", "Walker", 40),
@@ -52,7 +60,7 @@ class TestReadExample(TestConfig):
     ):
         input: DataFrame = spark_fixture.createDataFrame(
             [
-                ("Madhav", "Khanna", 32),
+                ("Madhav", "Khanna", 33),
                 ("Big", "Ramy", 18),
                 ("Hunter", "Labrada", 21),
                 ("Nick", "Walker", 40),
